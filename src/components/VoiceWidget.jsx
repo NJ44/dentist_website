@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Mic, Phone, X, PhoneOff } from 'lucide-react'
 import { RetellWebClient } from 'retell-client-js-sdk'
+import { useTranslation } from '../hooks/useTranslation'
 
 const VoiceWidget = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false)
   const [isCalling, setIsCalling] = useState(false)
   const [retellClient, setRetellClient] = useState(null)
@@ -98,9 +100,9 @@ const VoiceWidget = () => {
       // Step 2: Initialize Retell client
       console.log('Initializing Retell client...')
       const client = new RetellWebClient()
-      
+
       console.log('Client methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(client)))
-      
+
       await client.startCall({
         accessToken: access_token,
         callId: call_id,
@@ -182,9 +184,8 @@ const VoiceWidget = () => {
       {/* Voice Widget Button */}
       <button
         onClick={toggleWidget}
-        className={`fixed bottom-6 right-6 z-[60] flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-2xl transition-all duration-500 ease-out hover:shadow-blue-500/50 hover:scale-110 active:scale-95 ${
-          isOpen ? 'rotate-90 opacity-0 pointer-events-none' : 'rotate-0 opacity-100'
-        }`}
+        className={`fixed bottom-6 right-6 z-[60] flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-2xl transition-all duration-500 ease-out hover:shadow-blue-500/50 hover:scale-110 active:scale-95 ${isOpen ? 'rotate-90 opacity-0 pointer-events-none' : 'rotate-0 opacity-100'
+          }`}
         aria-label="Open voice widget"
       >
         <Phone className="w-7 h-7" strokeWidth={2} />
@@ -192,11 +193,10 @@ const VoiceWidget = () => {
 
       {/* Voice Widget Panel */}
       <div
-        className={`fixed bottom-6 right-6 z-[60] transition-all duration-500 ease-out ${
-          isOpen
+        className={`fixed bottom-6 right-6 z-[60] transition-all duration-500 ease-out ${isOpen
             ? 'opacity-100 scale-100 translate-y-0'
             : 'opacity-0 scale-95 translate-y-4 pointer-events-none'
-        }`}
+          }`}
       >
         <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden min-w-[320px]">
           {/* Header */}
@@ -206,9 +206,9 @@ const VoiceWidget = () => {
                 <Phone className="w-5 h-5 text-white" strokeWidth={2.5} />
               </div>
               <div>
-                <h3 className="text-white font-semibold text-base">Voice Assistant</h3>
+                <h3 className="text-white font-semibold text-base">{t.voice_widget.title}</h3>
                 <p className="text-blue-100 text-xs">
-                  {isCalling ? 'Call in progress' : 'Tap to speak'}
+                  {isCalling ? t.voice_widget.callInProgress : t.voice_widget.tapToSpeak}
                 </p>
               </div>
             </div>
@@ -236,7 +236,7 @@ const VoiceWidget = () => {
               {/* Status Text */}
               <div className="text-center">
                 <p className="text-gray-700 font-medium text-sm">
-                  {isCalling ? formatDuration(callDuration) : 'Tap to speak'}
+                  {isCalling ? formatDuration(callDuration) : t.voice_widget.tapToSpeak}
                 </p>
               </div>
 
@@ -244,21 +244,20 @@ const VoiceWidget = () => {
               <button
                 onClick={handleCall}
                 disabled={isCalling && !retellClient}
-                className={`w-full py-3 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 ${
-                  isCalling
+                className={`w-full py-3 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 ${isCalling
                     ? 'bg-red-500 hover:bg-red-600 text-white'
                     : 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white'
-                }`}
+                  }`}
               >
                 {isCalling ? (
                   <>
                     <PhoneOff className="w-4 h-4" strokeWidth={2.5} />
-                    End Call
+                    {t.voice_widget.endCall}
                   </>
                 ) : (
                   <>
                     <Mic className="w-4 h-4" strokeWidth={2.5} />
-                    Call us here
+                    {t.voice_widget.callUs}
                   </>
                 )}
               </button>

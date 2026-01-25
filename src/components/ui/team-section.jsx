@@ -1,37 +1,37 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-
-const members = [
-    {
-        name: 'Dr. Sarah Johnson',
-        role: 'Lead Dentist - DDS',
-        avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop',
-        link: '#',
-    },
-    {
-        name: 'Dr. Michael Chen',
-        role: 'Orthodontist - DDS',
-        avatar: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
-        link: '#',
-    },
-    {
-        name: 'Dr. James Wilson',
-        role: 'Oral Surgeon - DDS',
-        avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop',
-        link: '#',
-    },
-]
+import { useTranslation } from '../../hooks/useTranslation'
 
 export default function TeamSection() {
+    const { t } = useTranslation()
+    const members = [
+        {
+            name: "ד\"ר שרה ג'ונסון",
+            role: t.team_section.roles.lead,
+            avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop',
+            link: '#',
+        },
+        {
+            name: "ד\"ר מייקל צ'ן",
+            role: t.team_section.roles.ortho,
+            avatar: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop',
+            link: '#',
+        },
+        {
+            name: "ד\"ר ג'יימס וילסון",
+            role: t.team_section.roles.surgeon,
+            avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop',
+            link: '#',
+        },
+    ]
     return (
         <section className="bg-gray-50 py-16 md:py-32 dark:bg-transparent">
             <div className="mx-auto max-w-5xl px-6">
                 <div className="mt-12 gap-4 sm:grid sm:grid-cols-2 md:mt-24">
                     <div className="sm:w-2/5">
-                        <h2 className="text-4xl font-bold">Our dream team</h2>
+                        <h2 className="text-4xl font-bold">{t.team_section.title}</h2>
                     </div>
                     <div className="mt-6 sm:mt-0">
-                        <p>During the working process, we perform regular fitting with the client because he is the only person who can feel whether a new suit fits or not.</p>
+                        <p>{t.team_section.description}</p>
                     </div>
                 </div>
                 <div className="mt-12 md:mt-24">

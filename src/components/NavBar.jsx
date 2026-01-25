@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu as MenuIcon, X, Languages, ChevronDown } from "lucide-react";
+import { Menu as MenuIcon, X } from "lucide-react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "./ui/navbar-menu";
 import { scrollToElement } from "../hooks/useLenis";
 import { cn } from "../lib/utils";
@@ -12,11 +12,10 @@ function NavBar({ className }) {
   const [active, setActive] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const { t } = useTranslation();
-  const languageDropdownRef = useRef(null);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,22 +25,7 @@ function NavBar({ className }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close language dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (languageDropdownRef.current && !languageDropdownRef.current.contains(event.target)) {
-        setIsLanguageDropdownOpen(false);
-      }
-    };
 
-    if (isLanguageDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isLanguageDropdownOpen]);
 
   const scrollToSection = (href) => {
     if (href.startsWith('#')) {
@@ -111,45 +95,45 @@ function NavBar({ className }) {
           <MenuItem setActive={setActive} active={active} item={t.nav.services}>
             <div className="text-sm grid grid-cols-2 gap-6 p-4">
               <ProductItem
-                title="General Dentistry"
+                title={t.services.generalDentistry}
                 href="/general-dentistry"
                 src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=200&h=120&fit=crop"
-                description="Comprehensive dental care for the whole family"
+                description={t.services.generalDesc}
                 onClick={() => handleLinkClick("/general-dentistry")}
               />
               <ProductItem
-                title="Cosmetic & Whitening"
+                title={t.services.cosmeticWhitening}
                 href="/cosmetic-whitening"
                 src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=200&h=120&fit=crop"
-                description="Transform your smile with professional treatments"
+                description={t.services.cosmeticDesc}
                 onClick={() => handleLinkClick("/cosmetic-whitening")}
               />
               <ProductItem
-                title="Specialized Care"
+                title={t.services.specializedCare}
                 href="/specialized-care"
                 src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=200&h=120&fit=crop"
-                description="Advanced treatments and specialized services"
+                description={t.services.specializedDesc}
                 onClick={() => handleLinkClick("/specialized-care")}
               />
               <ProductItem
-                title="Dental Implants"
+                title={t.services.dentalImplants}
                 href="/specialized-care"
                 src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=200&h=120&fit=crop"
-                description="Permanent solution for missing teeth"
+                description={t.services.implantsDesc}
                 onClick={() => handleLinkClick("/specialized-care")}
               />
               <ProductItem
-                title="Emergency Care"
+                title={t.services.emergencyCare}
                 href="/specialized-care"
                 src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=200&h=120&fit=crop"
-                description="Same-day emergency appointments available"
+                description={t.services.emergencyDesc}
                 onClick={() => handleLinkClick("/specialized-care")}
               />
               <ProductItem
-                title="Orthodontics"
+                title={t.services.orthodontics}
                 href="/specialized-care"
                 src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=200&h=120&fit=crop"
-                description="Straighten teeth with modern options"
+                description={t.services.orthoDesc}
                 onClick={() => handleLinkClick("/specialized-care")}
               />
             </div>
@@ -158,31 +142,31 @@ function NavBar({ className }) {
           <MenuItem setActive={setActive} active={active} item={t.nav.aboutUs}>
             <div className="text-sm grid grid-cols-2 gap-10 p-4">
               <ProductItem
-                title="Our Practice"
+                title={t.about.ourPractice}
                 href="#home"
                 src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=280&h=140&fit=crop"
-                description="Modern dental care with a friendly, professional team"
+                description={t.about.practiceDesc}
                 onClick={() => scrollToSection("#home")}
               />
               <ProductItem
-                title="Patient Reviews"
+                title={t.about.patientReviews}
                 href="/reviews"
                 src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=280&h=140&fit=crop"
-                description="See what our patients say about their experience"
+                description={t.about.reviewsDesc}
                 onClick={() => handleLinkClick("/reviews")}
               />
               <ProductItem
-                title="Location"
+                title={t.about.location}
                 href="#map"
                 src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=280&h=140&fit=crop"
-                description="Visit us at our convenient location in the city"
+                description={t.about.locationDesc}
                 onClick={() => scrollToSection("#map")}
               />
               <ProductItem
-                title="FAQ"
+                title={t.about.faq}
                 href="#faq"
                 src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=280&h=140&fit=crop"
-                description="Common questions about our services and policies"
+                description={t.about.faqDesc}
                 onClick={() => scrollToSection("#faq")}
               />
             </div>
@@ -202,54 +186,6 @@ function NavBar({ className }) {
 
         {/* Desktop Language Switcher and Book Now Button - hidden on mobile */}
         <div className="hidden md:flex items-center ml-auto gap-3" style={{ transform: 'translateX(20px)' }}>
-          <div 
-            ref={languageDropdownRef}
-            className="relative"
-            onMouseEnter={() => setIsLanguageDropdownOpen(true)}
-            onMouseLeave={() => setIsLanguageDropdownOpen(false)}
-          >
-            <button
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium text-sm text-black hover:bg-gray-100 transition-colors"
-              aria-label="Language selector"
-            >
-              <span>{language === 'en' ? 'EN' : 'ES'}</span>
-              <ChevronDown className="w-4 h-4" />
-            </button>
-            {isLanguageDropdownOpen && (
-              <div 
-                className="absolute top-full right-0 pt-1 bg-transparent"
-                onMouseEnter={() => setIsLanguageDropdownOpen(true)}
-                onMouseLeave={() => setIsLanguageDropdownOpen(false)}
-              >
-                <div className="bg-white rounded-lg shadow-lg border border-gray-200 min-w-[120px] z-50">
-                  <button
-                    onClick={() => {
-                      setLanguage('en');
-                      setIsLanguageDropdownOpen(false);
-                    }}
-                    className={cn(
-                      "w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors first:rounded-t-lg last:rounded-b-lg",
-                      language === 'en' && "bg-gray-50 font-semibold"
-                    )}
-                  >
-                    EN
-                  </button>
-                  <button
-                    onClick={() => {
-                      setLanguage('es');
-                      setIsLanguageDropdownOpen(false);
-                    }}
-                    className={cn(
-                      "w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors first:rounded-t-lg last:rounded-b-lg",
-                      language === 'es' && "bg-gray-50 font-semibold"
-                    )}
-                  >
-                    ES
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
           <a
             href="#appointment-form"
             onClick={(e) => {
@@ -299,7 +235,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:text-primary transition-colors"
                 >
-                  General Dentistry
+                  {t.services.generalDentistry}
                 </a>
                 <a
                   href="/cosmetic-whitening"
@@ -309,7 +245,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:text-primary transition-colors"
                 >
-                  Cosmetic & Whitening
+                  {t.services.cosmeticWhitening}
                 </a>
                 <a
                   href="/specialized-care"
@@ -319,7 +255,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:text-primary transition-colors"
                 >
-                  Specialized Care
+                  {t.services.specializedCare}
                 </a>
               </div>
             </div>
@@ -336,7 +272,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:text-primary transition-colors"
                 >
-                  Our Practice
+                  {t.about.ourPractice}
                 </a>
                 <a
                   href="/reviews"
@@ -346,7 +282,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:text-primary transition-colors"
                 >
-                  Patient Reviews
+                  {t.about.patientReviews}
                 </a>
                 <a
                   href="#map"
@@ -356,7 +292,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:text-primary transition-colors"
                 >
-                  Location
+                  {t.about.location}
                 </a>
                 <a
                   href="#faq"
@@ -366,7 +302,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:text-primary transition-colors"
                 >
-                  FAQ
+                  {t.about.faq}
                 </a>
               </div>
             </div>
@@ -407,40 +343,12 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:text-primary transition-colors"
                 >
-                  Contact Us
+                  {t.footer.contactUs}
                 </a>
               </div>
             </div>
 
-            {/* Mobile Language Switcher */}
-            <div className="pt-2">
-              <div className="space-y-2">
-                <button
-                  onClick={() => {
-                    setLanguage('en');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={cn(
-                    "flex items-center gap-2 w-full px-4 py-3 rounded-lg font-medium text-black hover:bg-gray-100 transition-colors border",
-                    language === 'en' ? "border-primary bg-primary/5" : "border-gray-200"
-                  )}
-                >
-                  <span>EN</span>
-                </button>
-                <button
-                  onClick={() => {
-                    setLanguage('es');
-                    setIsMobileMenuOpen(false);
-                }}
-                  className={cn(
-                    "flex items-center gap-2 w-full px-4 py-3 rounded-lg font-medium text-black hover:bg-gray-100 transition-colors border",
-                    language === 'es' ? "border-primary bg-primary/5" : "border-gray-200"
-                  )}
-                >
-                  <span>ES</span>
-                </button>
-              </div>
-            </div>
+
 
             {/* Mobile Book Now Button */}
             <div className="pt-4">

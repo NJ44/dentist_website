@@ -6,7 +6,7 @@ import { useTranslation } from '../hooks/useTranslation'
 
 const Hero = () => {
   const { t } = useTranslation();
-  
+
   return (
     <section
       id="home"
@@ -25,10 +25,10 @@ const Hero = () => {
           {/* Left Column - Text Content */}
           <div className="text-black space-y-4 animate-fade-in">
             <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight text-black">
-              Your Local Dentist for Healthy, Confident Smiles
+              {t.hero.mainTitle}
             </h1>
             <h2 className="text-lg md:text-xl lg:text-2xl text-black font-normal">
-              Modern care, gentle treatments, and a team that puts you first.
+              {t.hero.mainSubtitle}
             </h2>
 
             {/* CTAs */}

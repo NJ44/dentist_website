@@ -1,56 +1,58 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { config } from '../config'
+import { useTranslation } from '../hooks/useTranslation'
 
 const Blog = () => {
+  const { t } = useTranslation();
   const blogPosts = [
     {
       id: 1,
-      title: "5 Essential Tips for Maintaining Healthy Teeth",
-      excerpt: "Discover simple yet effective ways to keep your teeth healthy and your smile bright. Learn about proper brushing techniques, flossing, and the importance of regular dental checkups.",
+      title: t.blog_section.p1_title,
+      excerpt: t.blog_section.p1_excerpt,
       date: "March 15, 2024",
       image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=400&fit=crop",
-      category: "Oral Health"
+      category: t.blog_section.categories.oralHealth
     },
     {
       id: 2,
-      title: "Understanding the Benefits of Professional Teeth Whitening",
-      excerpt: "Professional teeth whitening can transform your smile in just one visit. Learn about the process, benefits, and how it compares to at-home treatments.",
+      title: t.blog_section.p2_title,
+      excerpt: t.blog_section.p2_excerpt,
       date: "March 10, 2024",
       image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=400&fit=crop",
-      category: "Cosmetic Dentistry"
+      category: t.blog_section.categories.cosmetic
     },
     {
       id: 3,
-      title: "What to Expect During Your First Dental Implant Consultation",
-      excerpt: "Dental implants are a permanent solution for missing teeth. This guide walks you through what to expect during your initial consultation and the implant process.",
+      title: t.blog_section.p3_title,
+      excerpt: t.blog_section.p3_excerpt,
       date: "March 5, 2024",
       image: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800&h=400&fit=crop",
-      category: "Specialized Care"
+      category: t.blog_section.categories.specialized
     },
     {
       id: 4,
-      title: "The Link Between Oral Health and Overall Wellness",
-      excerpt: "Your oral health is more connected to your overall health than you might think. Discover how maintaining good dental hygiene can benefit your entire body.",
+      title: t.blog_section.p4_title,
+      excerpt: t.blog_section.p4_excerpt,
       date: "February 28, 2024",
       image: "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=400&fit=crop",
-      category: "Health & Wellness"
+      category: t.blog_section.categories.wellness
     },
     {
       id: 5,
-      title: "Emergency Dental Care: When to Seek Immediate Treatment",
-      excerpt: "Dental emergencies can happen at any time. Learn to recognize when you need immediate dental care and what steps to take before reaching our office.",
+      title: t.blog_section.p5_title,
+      excerpt: t.blog_section.p5_excerpt,
       date: "February 20, 2024",
       image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&h=400&fit=crop",
-      category: "Emergency Care"
+      category: t.blog_section.categories.emergency
     },
     {
       id: 6,
-      title: "Choosing the Right Toothbrush and Toothpaste for Your Needs",
-      excerpt: "Not all oral care products are created equal. Get expert advice on selecting the best toothbrush and toothpaste for your specific dental needs.",
+      title: t.blog_section.p6_title,
+      excerpt: t.blog_section.p6_excerpt,
       date: "February 15, 2024",
       image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=400&fit=crop",
-      category: "Oral Health"
+      category: t.blog_section.categories.oralHealth
     }
   ]
 
@@ -66,10 +68,10 @@ const Blog = () => {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Dental Health Blog
+            {t.blog_section.title}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Stay informed about the latest in dental care, oral health tips, and insights from our expert team.
+            {t.blog_section.subtitle}
           </p>
         </motion.div>
 
@@ -108,7 +110,7 @@ const Blog = () => {
                   href="#"
                   className="inline-flex items-center text-primary font-semibold hover:underline"
                 >
-                  Read More →
+                  {t.blog_section.readMore}
                 </a>
               </div>
             </motion.article>

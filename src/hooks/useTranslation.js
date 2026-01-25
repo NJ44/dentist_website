@@ -1,15 +1,10 @@
 import { useLanguage } from '../contexts/LanguageContext';
-import { translations as enTranslations } from '../translations/en';
-import { translations as esTranslations } from '../translations/es';
-
-const translationMap = {
-  en: enTranslations,
-  es: esTranslations,
-};
+import { translations as heTranslations } from '../translations/he';
 
 export const useTranslation = () => {
   const { language } = useLanguage();
-  const t = translationMap[language] || enTranslations;
+  // We only support Hebrew now, but we keep the structure for compatibility
+  const t = heTranslations;
 
   return { t, language };
 };

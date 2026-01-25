@@ -1,8 +1,10 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { config } from '../config'
+import { useTranslation } from '../hooks/useTranslation'
 
 const MapEmbed = () => {
+  const { t } = useTranslation();
   const mapSrc = config.GOOGLE_MAP_EMBED_SRC && !config.GOOGLE_MAP_EMBED_SRC.startsWith('{{')
     ? config.GOOGLE_MAP_EMBED_SRC
     : 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.184132576894!2d-73.98811768459398!3d40.75889597932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQ1JzMyLjAiTiA3M8KwNTknMTQuMiJX!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus'
@@ -12,7 +14,7 @@ const MapEmbed = () => {
   )}`
 
   return (
-    <motion.section 
+    <motion.section
       id="map"
       className="py-20 bg-white"
       initial={{ opacity: 0, y: 30 }}
@@ -21,20 +23,20 @@ const MapEmbed = () => {
       transition={{ duration: 0.8 }}
     >
       <div className="container mx-auto px-4">
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Find Us</h2>
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">{t.about.location}</h2>
           <p className="text-xl text-gray-600">
             {config.BUSINESS_NAME} {config.ADDRESS_LINE}, {config.CITY}
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,7 +83,7 @@ const MapEmbed = () => {
                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              Open in Google Maps
+              {t.contact.openMaps}
             </a>
           </div>
         </motion.div>

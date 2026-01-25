@@ -11,26 +11,21 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState(() => {
-    // Get language from localStorage or default to 'en'
-    return localStorage.getItem('language') || 'en';
-  });
+  const [language] = useState('he');
 
   useEffect(() => {
     // Save language preference to localStorage
-    localStorage.setItem('language', language);
+    localStorage.setItem('language', 'he');
     // Update HTML lang attribute
-    document.documentElement.lang = language;
-  }, [language]);
-
-  const toggleLanguage = () => {
-    setLanguage(prev => prev === 'en' ? 'es' : 'en');
-  };
+    document.documentElement.lang = 'he';
+    // Update HTML dir attribute for RTL
+    document.documentElement.dir = 'rtl';
+  }, []);
 
   const value = {
     language,
-    setLanguage,
-    toggleLanguage,
+    setLanguage: () => { },
+    toggleLanguage: () => { },
   };
 
   return (
